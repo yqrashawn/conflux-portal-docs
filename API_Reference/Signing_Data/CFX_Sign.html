@@ -585,17 +585,20 @@
             </nav>
             <main>
                 <div class="container">
-                    <h1 id="defining-your-app%E2%80%99s-icon">Defining Your App’s Icon <a class="header-anchor" href="#defining-your-app%E2%80%99s-icon">#</a></h1>
-<p>When your site makes a login request to a ConfluxPortal user, ConfluxPortal may
-render a modal that display’s your site icon.</p>
-<p>We retrieve this icon using the HTML selector <code>head &gt; link[rel=&quot;shortcut icon&quot;]</code>, so to customize this icon for your site, just make sure to follow the
-<a href="https://en.wikipedia.org/wiki/Favicon">favicon standard</a>, and make sure to have
-a <code>link</code> tag within your site’s <code>head</code> with <code>rel = &quot;shortcut icon&quot;</code>, like this.</p>
-<p>The tag’s <code>href</code> attribute will be used for assigning the site icon.</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"shortcut icon"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://your-site.com/your-icon.png"</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-</code></pre>
+                    <h1 id="cfx-sign">CFX Sign <a class="header-anchor" href="#cfx-sign">#</a></h1>
+<p>The CFX Sign method is the oldest signing method in Conflux, and can sign any
+binary data, making it a dangerous method that can potentially sign transactions
+or even <a href="https://en.wikipedia.org/wiki/Chosen-ciphertext_attack">leak its private
+key</a>.</p>
+<p>You can read <a href="https://github.com/MetaMask/eth-simple-keyring/blob/master/index.js#L61-L68">our implementation
+here</a>.</p>
+<p>Since this method is insecure, it should only be used for internal experiments
+or your own contracts that you interact with directly.</p>
+<p>When prompted for this type of signature, users are shown an aggressive warning
+that inclines them to re-evaluate their trust of the site suggesting the
+signature.</p>
+<!-- You can read the [cfx_sign API documentation -->
+<!-- here](https://github.com/metamask/wiki/wiki/JSON-RPC#eth_sign).  -->
 
                     <div class="bottomMatter">
                         Last updated:

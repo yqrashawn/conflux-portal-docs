@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>MetaMask</title>
+		<title>ConfluxPortal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="MetaMask project documentation">
+		<meta name="description" content="ConfluxPortal project documentation">
         <link rel="icon" type="image/png" href="https://i.ibb.co/BsTBKsn/fox.png">
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -357,8 +357,8 @@
         <header>
             <div class="name">
                 <div class="logo" style="background-image: url(https://i.ibb.co/BsTBKsn/fox.png)"></div>
-                MetaMask
-                <span class="version">v7.7.1</span>
+                ConfluxPortal
+                <span class="version">v7.7.2</span>
             </div>
             <div class="actions">
                 <a href="/metamask-docs/" class="help">
@@ -394,7 +394,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/Examples/Low_Level_Ether_Transfer">Low Level Ether Transfer</a>
+                                        <a href="/metamask-docs/Examples/Low_Level_CFX_Transfer">Low Level CFX Transfer</a>
                                     </li>
                                 
                             
@@ -460,7 +460,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Ethereum_Provider">Ethereum Provider</a>
+                                        <a href="/metamask-docs/API_Reference/Conflux_Provider">Conflux Provider</a>
                                     </li>
                                 
                             
@@ -496,7 +496,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Signing_Data/Eth_Sign">Eth Sign</a>
+                                        <a href="/metamask-docs/API_Reference/Signing_Data/CFX_Sign">CFX Sign</a>
                                     </li>
                                 
                             
@@ -585,15 +585,22 @@
             </nav>
             <main>
                 <div class="container">
-                    <h1 id="the-ethereum-rpc-api">The Ethereum RPC API <a class="header-anchor" href="#the-ethereum-rpc-api">#</a></h1>
-<p>MetaMask uses the <code>ethereum.sendAsync()</code> (and soon, <code>ethereum.send()</code>) API to wrap an RPC API which is based on an interface exposed by all Ethereum clients, with some extra methods that are provided by MetaMask, as a key-holding signer. You can look up how to pass these methods to the <code>window.ethereum</code> object <a href="./Ethereum_Provider">here</a>.</p>
-<p>This document is a cross-post of <a href="https://github.com/ethereum/EIPs/pull/1474/">EIP 1474</a>, which aims to standardize the declaration of this interface.</p>
-<p>For the full API, please see <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1474.md">EIP 1474</a>.</p>
+                    <h1 id="the-conflux-rpc-api">The Conflux RPC API <a class="header-anchor" href="#the-conflux-rpc-api">#</a></h1>
+<p>ConfluxPortal uses the <code>conflux.sendAsync()</code> (and soon, <code>conflux.send()</code>) API to
+wrap an RPC API which is based on an interface exposed by all Conflux clients,
+with some extra methods that are provided by MetaMask, as a key-holding signer.
+You can look up how to pass these methods to the <code>window.conflux</code> object
+<a href="./Conflux_Provider">here</a>.</p>
+<p>This document is a cross-post of <a href="https://github.com/ethereum/EIPs/pull/1474/">EIP
+1474</a>, which aims to standardize the
+declaration of this interface.</p>
+<p>For the full API, please see <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1474.md">EIP
+1474</a>.</p>
 
                     <div class="bottomMatter">
                         Last updated:
                         
-                        12/23/2019
+                        1/16/2020
                         <span id="top">Top <i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     </div>
                 </div>

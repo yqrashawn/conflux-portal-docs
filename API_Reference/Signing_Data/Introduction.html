@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>MetaMask</title>
+		<title>ConfluxPortal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="MetaMask project documentation">
+		<meta name="description" content="ConfluxPortal project documentation">
         <link rel="icon" type="image/png" href="https://i.ibb.co/BsTBKsn/fox.png">
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -357,8 +357,8 @@
         <header>
             <div class="name">
                 <div class="logo" style="background-image: url(https://i.ibb.co/BsTBKsn/fox.png)"></div>
-                MetaMask
-                <span class="version">v7.7.1</span>
+                ConfluxPortal
+                <span class="version">v7.7.2</span>
             </div>
             <div class="actions">
                 <a href="/metamask-docs/" class="help">
@@ -394,7 +394,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/Examples/Low_Level_Ether_Transfer">Low Level Ether Transfer</a>
+                                        <a href="/metamask-docs/Examples/Low_Level_CFX_Transfer">Low Level CFX Transfer</a>
                                     </li>
                                 
                             
@@ -460,7 +460,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Ethereum_Provider">Ethereum Provider</a>
+                                        <a href="/metamask-docs/API_Reference/Conflux_Provider">Conflux Provider</a>
                                     </li>
                                 
                             
@@ -496,7 +496,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Signing_Data/Eth_Sign">Eth Sign</a>
+                                        <a href="/metamask-docs/API_Reference/Signing_Data/CFX_Sign">CFX Sign</a>
                                     </li>
                                 
                             
@@ -585,33 +585,72 @@
             </nav>
             <main>
                 <div class="container">
-                    <h1 id="signing-data-with-metamask">Signing Data with MetaMask <a class="header-anchor" href="#signing-data-with-metamask">#</a></h1>
-<p>If you’d like to jump to some working signature examples, <a href="https://github.com/danfinlay/js-eth-personal-sign-examples">you can visit this repository</a>.</p>
-<p>If you’d like to read our JavaScript implementations of these methods, they are all available in the npm package <a href="https://github.com/MetaMask/eth-sig-util">eth-sig-util</a>.</p>
-<p>Note that MetaMask supports signing transactions with Trezor and Ledger hardware wallets. These hardware wallets currently only support signing data using the <a href="./Personal_Sign"><code>personal_sign</code></a> method. If you have trouble logging in to a website or dapp when using a Ledger or Trezor, the site may be requesting you sign data via an unsupported method, in which case we recommend using your standard MetaMask account.</p>
+                    <h1 id="signing-data-with-confluxportal">Signing Data with ConfluxPortal <a class="header-anchor" href="#signing-data-with-confluxportal">#</a></h1>
+<p>If you’d like to jump to some working signature examples, <a href="https://github.com/danfinlay/js-eth-personal-sign-examples">you can visit this
+repository</a>.</p>
+<p>If you’d like to read our JavaScript implementations of these methods, they are
+all available in the npm package
+<a href="https://github.com/MetaMask/eth-sig-util">eth-sig-util</a>.</p>
+<p>Note that ConfluxPortal supports signing transactions with Trezor and Ledger
+hardware wallets. These hardware wallets currently only support signing data
+using the <a href="./Personal_Sign"><code>personal_sign</code></a> method. If you have trouble logging
+in to a website or dapp when using a Ledger or Trezor, the site may be
+requesting you sign data via an unsupported method, in which case we recommend
+using your standard ConfluxPortal account.</p>
 <h2 id="a-brief-history">A Brief History <a class="header-anchor" href="#a-brief-history">#</a></h2>
-<p>There are currently five signing methods in MetaMask, and you might wonder the history of these methods. Studying the history of these methods has some lessons in it for the emergent lessons of decentralized standards emergence. Our current five methods are:</p>
+<p>There are currently five signing methods in ConfluxPortal, and you might wonder
+the history of these methods. Studying the history of these methods has some
+lessons in it for the emergent lessons of decentralized standards emergence. Our
+current five methods are:</p>
 <ul>
-<li><a href="./Eth_Sign"><code>eth_sign</code></a></li>
+<li><a href="./CFX_Sign"><code>cfx_sign</code></a></li>
 <li><a href="./Personal_Sign"><code>personal_sign</code></a></li>
 <li><a href="./Sign_Typed_Data_v1"><code>signTypedData</code></a> (currently identical to <code>signTypedData_v1</code>)</li>
 <li><a href="./Sign_Typed_Data_v1"><code>signTypedData_v1</code></a></li>
 <li><a href="./Sign_Typed_Data_v3"><code>signTypedData_v3</code></a></li>
 </ul>
-<p>There are likely to be many more over time. When MetMask first started, the Provider API wasn’t designed to be exposed to untrusted websites, and so some considerations weren’t taken as seriously as they were later.</p>
-<p>In particular, the method <code>eth_sign</code> is an open-ended signing method that allows signing an arbitrary hash, which means it can be used to sign transactions, or any other data, making it a dangerous phishing risk.</p>
-<p>For this reason, we make this method show the most frightening possible message to the user, and generally discourage using this method in production. However, some applications (usually admin panels internal to teams) use this method for the sake of its ease of use, and so we have continued to support it for the sake of not breaking the workflows of active projects.</p>
-<p>Eventually, the <a href="https://github.com/ethereum/go-ethereum/pull/2940"><code>personal_sign</code> spec</a> was proposed, which added a prefix to the data so it could not impersonate transactions. We also made this method able to display human readable text when UTF-8 encoded, making it a popular choice for site logins.</p>
-<p>However, the text-prefix made those signatures expensive to verify on-chain, and so with the help of the <a href="https://0xproject.com/">0xProtocol</a> team and <a href="https://spankchain.com/">SpankChain</a>, the <a href="https://eips.ethereum.org/EIPS/eip-712">EIP 712</a> spec was written.</p>
-<p>The strange part of EIP 712, and this decentralized standards ecosystem, is that the proposal changed several times while retaining the same EIP. This means what we initially implemented as <code>signTypedData</code> was the earliest proposed version, while other groups implemented later versions under the same method name.</p>
-<p>To avoid compatibility issues between clients, we recommend using the hard-versioned method names <code>signTypedData_v1</code> and <code>signTypedData_v3</code>. The missing <code>v2</code> represents an intermediary design that was implemented by the Cipher browser, so that we have room to implement it if there is ever enough developer demand for it.</p>
-<p>In the future, it may help to have method names include a hash of their exact proposal, since in a decentralized ecosystem, there is no absolute source of truth of what a given name should map to. Instead, we are forced to invent new patterns of collaboration, where we can drive forward and innovate, while simultaneously avoiding creating a brittle ecosystem by changing our meanings out from under the words.</p>
-<p>I hope this has been a useful introduction to the history of our signing methods!</p>
+<p>There are likely to be many more over time. When MetMask first started, the
+Provider API wasn’t designed to be exposed to untrusted websites, and so some
+considerations weren’t taken as seriously as they were later.</p>
+<p>In particular, the method <code>cfx_sign</code> is an open-ended signing method that allows
+signing an arbitrary hash, which means it can be used to sign transactions, or
+any other data, making it a dangerous phishing risk.</p>
+<p>For this reason, we make this method show the most frightening possible message
+to the user, and generally discourage using this method in production. However,
+some applications (usually admin panels internal to teams) use this method for
+the sake of its ease of use, and so we have continued to support it for the sake
+of not breaking the workflows of active projects.</p>
+<p>Eventually, the <a href="https://github.com/ethereum/go-ethereum/pull/2940"><code>personal_sign</code>
+spec</a> was proposed, which added
+a prefix to the data so it could not impersonate transactions. We also made this
+method able to display human readable text when UTF-8 encoded, making it a
+popular choice for site logins.</p>
+<p>However, the text-prefix made those signatures expensive to verify on-chain, and
+so with the help of the <a href="https://0xproject.com/">0xProtocol</a> team and
+<a href="https://spankchain.com/">SpankChain</a>, the <a href="https://eips.ethereum.org/EIPS/eip-712">EIP
+712</a> spec was written.</p>
+<p>The strange part of EIP 712, and this decentralized standards ecosystem, is that
+the proposal changed several times while retaining the same EIP. This means what
+we initially implemented as <code>signTypedData</code> was the earliest proposed version,
+while other groups implemented later versions under the same method name.</p>
+<p>To avoid compatibility issues between clients, we recommend using the
+hard-versioned method names <code>signTypedData_v1</code> and <code>signTypedData_v3</code>. The
+missing <code>v2</code> represents an intermediary design that was implemented by the
+Cipher browser, so that we have room to implement it if there is ever enough
+developer demand for it.</p>
+<p>In the future, it may help to have method names include a hash of their exact
+proposal, since in a decentralized ecosystem, there is no absolute source of
+truth of what a given name should map to. Instead, we are forced to invent new
+patterns of collaboration, where we can drive forward and innovate, while
+simultaneously avoiding creating a brittle ecosystem by changing our meanings
+out from under the words.</p>
+<p>I hope this has been a useful introduction to the history of our signing
+methods!</p>
 
                     <div class="bottomMatter">
                         Last updated:
                         
-                        12/23/2019
+                        1/16/2020
                         <span id="top">Top <i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     </div>
                 </div>

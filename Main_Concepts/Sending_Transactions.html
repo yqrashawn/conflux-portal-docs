@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>MetaMask</title>
+		<title>ConfluxPortal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="MetaMask project documentation">
+		<meta name="description" content="ConfluxPortal project documentation">
         <link rel="icon" type="image/png" href="https://i.ibb.co/BsTBKsn/fox.png">
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -357,8 +357,8 @@
         <header>
             <div class="name">
                 <div class="logo" style="background-image: url(https://i.ibb.co/BsTBKsn/fox.png)"></div>
-                MetaMask
-                <span class="version">v7.7.1</span>
+                ConfluxPortal
+                <span class="version">v7.7.2</span>
             </div>
             <div class="actions">
                 <a href="/metamask-docs/" class="help">
@@ -394,7 +394,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/Examples/Low_Level_Ether_Transfer">Low Level Ether Transfer</a>
+                                        <a href="/metamask-docs/Examples/Low_Level_CFX_Transfer">Low Level CFX Transfer</a>
                                     </li>
                                 
                             
@@ -460,7 +460,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Ethereum_Provider">Ethereum Provider</a>
+                                        <a href="/metamask-docs/API_Reference/Conflux_Provider">Conflux Provider</a>
                                     </li>
                                 
                             
@@ -496,7 +496,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Signing_Data/Eth_Sign">Eth Sign</a>
+                                        <a href="/metamask-docs/API_Reference/Signing_Data/CFX_Sign">CFX Sign</a>
                                     </li>
                                 
                             
@@ -586,56 +586,95 @@
             <main>
                 <div class="container">
                     <h1 id="sending-transactions">Sending Transactions <a class="header-anchor" href="#sending-transactions">#</a></h1>
-<p>Transactions are a formal action on a blockchain. They are always initiated in MetaMask with a call to the <code>eth_sendTransaction</code> method. They can involve a simple sending of ether, may result in sending tokens, creating a new smart contract, or changing state on the blockchain in any number of ways. They are always initiated by a signature from an <em>external account</em>, or a simple key pair.</p>
-<p>In MetaMask, using the <code>ethereum.sendAsync</code> method directly, sending a transaction will involve composing an options object like this:</p>
+<p>Transactions are a formal action on a blockchain. They are always initiated in
+ConfluxPortal with a call to the <code>cfx_sendTransaction</code> method. They can involve
+a simple sending of ether, may result in sending tokens, creating a new smart
+contract, or changing state on the blockchain in any number of ways. They are
+always initiated by a signature from an <em>external account</em>, or a simple key
+pair.</p>
+<p>In ConfluxPortal, using the <code>conflux.sendAsync</code> method directly, sending a
+transaction will involve composing an options object like this:</p>
 <pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> transactionParameters = {
-  <span class="hljs-attr">nonce</span>: <span class="hljs-string">'0x00'</span>, <span class="hljs-comment">// ignored by MetaMask</span>
-  <span class="hljs-attr">gasPrice</span>: <span class="hljs-string">'0x09184e72a000'</span>, <span class="hljs-comment">// customizable by user during MetaMask confirmation.</span>
-  <span class="hljs-attr">gas</span>: <span class="hljs-string">'0x2710'</span>,  <span class="hljs-comment">// customizable by user during MetaMask confirmation.</span>
+  <span class="hljs-attr">nonce</span>: <span class="hljs-string">'0x00'</span>, <span class="hljs-comment">// ignored by ConfluxPortal</span>
+  <span class="hljs-attr">gasPrice</span>: <span class="hljs-string">'0x09184e72a000'</span>, <span class="hljs-comment">// customizable by user during ConfluxPortal confirmation.</span>
+  <span class="hljs-attr">gas</span>: <span class="hljs-string">'0x2710'</span>,  <span class="hljs-comment">// customizable by user during ConfluxPortal confirmation.</span>
   <span class="hljs-attr">to</span>: <span class="hljs-string">'0x0000000000000000000000000000000000000000'</span>, <span class="hljs-comment">// Required except during contract publications.</span>
-  <span class="hljs-attr">from</span>: web3.eth.accounts[<span class="hljs-number">0</span>], <span class="hljs-comment">// must match user's active address.</span>
+  <span class="hljs-attr">from</span>: accounts[<span class="hljs-number">0</span>], <span class="hljs-comment">// must match user's active address.</span>
   <span class="hljs-attr">value</span>: <span class="hljs-string">'0x00'</span>, <span class="hljs-comment">// Only required to send ether to the recipient from the initiating external account.</span>
   <span class="hljs-attr">data</span>: <span class="hljs-string">'0x7f7465737432000000000000000000000000000000000000000000000000000000600057'</span>, <span class="hljs-comment">// Optional, but used for defining smart contract creation and interaction.</span>
-  <span class="hljs-attr">chainId</span>: <span class="hljs-number">3</span> <span class="hljs-comment">// Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.</span>
+  <span class="hljs-attr">chainId</span>: <span class="hljs-number">3</span> <span class="hljs-comment">// Used to prevent transaction reuse across blockchains. Auto-filled by ConfluxPortal.</span>
 }
 
-ethereum.sendAsync({
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'eth_sendTransaction'</span>,
+conflux.sendAsync({
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'cfx_sendTransaction'</span>,
   <span class="hljs-attr">params</span>: [transactionParameters],
-  <span class="hljs-attr">from</span>: ethereum.selectedAddress,
+  <span class="hljs-attr">from</span>: conflux.selectedAddress,
 }, callback)
 </code></pre>
 <h2 id="transaction-parameters">Transaction Parameters <a class="header-anchor" href="#transaction-parameters">#</a></h2>
-<p>Many transaction parameters are handled for you by MetaMask, but it’s good to know what all the parameters do.</p>
+<p>Many transaction parameters are handled for you by ConfluxPortal, but it’s good
+to know what all the parameters do.</p>
 <h3 id="nonce-%5Bignored%5D">Nonce [ignored] <a class="header-anchor" href="#nonce-%5Bignored%5D">#</a></h3>
-<p>This field is ignored by MetaMask.</p>
-<p>In Ethereum every transaction has a nonce. This is so that each transaction can only be processed by the blockchain once. Additionally, to be a valid transaction, the nonce must either be <code>0</code>, or a transaction with the previous number must have already been processed.</p>
-<p>That means that transactions are always processed in order for a given account, and so incrementing nonces is a very sensitive matter that is easy to mess up, especially when a user is interacting with multiple applications with pending transactions using the same account, potentially across multiple devices.</p>
-<p>For these reasons, MetaMask currently does not provide application developers any way to customize the nonce of transactions it suggests, and instead assists the user in managing their transaction queue themselves.</p>
+<p>This field is ignored by ConfluxPortal.</p>
+<p>In Conflux every transaction has a nonce. This is so that each transaction can
+only be processed by the blockchain once. Additionally, to be a valid
+transaction, the nonce must either be <code>0</code>, or a transaction with the previous
+number must have already been processed.</p>
+<p>That means that transactions are always processed in order for a given account,
+and so incrementing nonces is a very sensitive matter that is easy to mess up,
+especially when a user is interacting with multiple applications with pending
+transactions using the same account, potentially across multiple devices.</p>
+<p>For these reasons, ConfluxPortal currently does not provide application
+developers any way to customize the nonce of transactions it suggests, and
+instead assists the user in managing their transaction queue themselves.</p>
 <h3 id="gas-price-%5Boptional%5D">Gas Price [optional] <a class="header-anchor" href="#gas-price-%5Boptional%5D">#</a></h3>
 <p>Optional parameter - best used on private blockchains.</p>
-<p>In Ethereum, the pool of pending transactions offer their gas price as a sort of auction bid to the validators to include this transaction in a block in exchange for a transaction fee. That means high gas prices can mean faster processing, but also more expensive transactions.</p>
-<p>MetaMask helps users select a competitive gas price on the Ethereum Main Network and popular test networks. We make requests to an API maintained by our friends at MyCrypto and allow users to choose between “slow,” “medium,” and “fast” options for their gas price.</p>
-<p>We cannot know about the gas market on all blockchains because it requires some deep analysis. For this reason, while you can safely ignore this parameter on our main hosted networks, you may want to suggest a gas price in situations where your application knows more about the target network than we do.</p>
+<p>In Conflux, the pool of pending transactions offer their gas price as a sort of
+auction bid to the validators to include this transaction in a block in exchange
+for a transaction fee. That means high gas prices can mean faster processing,
+but also more expensive transactions.</p>
+<p>ConfluxPortal helps users select a competitive gas price on the Conflux Main
+Network and popular test networks. We make requests to an API maintained by our
+friends at MyCrypto and allow users to choose between “slow,” “medium,” and
+“fast” options for their gas price.</p>
+<p>We cannot know about the gas market on all blockchains because it requires some
+deep analysis. For this reason, while you can safely ignore this parameter on
+our main hosted networks, you may want to suggest a gas price in situations
+where your application knows more about the target network than we do.</p>
 <h3 id="gas-limit-%5Boptional%5D">Gas Limit [optional] <a class="header-anchor" href="#gas-limit-%5Boptional%5D">#</a></h3>
 <p>Optional parameter. Rarely useful to Dapp developers.</p>
-<p>Gas limit is a highly optional parameter, and we automatically calculate a reasonable price for it. You will probably know that your smart contract benefits from a custom gas limit if it ever does for some reason.</p>
+<p>Gas limit is a highly optional parameter, and we automatically calculate a
+reasonable price for it. You will probably know that your smart contract
+benefits from a custom gas limit if it ever does for some reason.</p>
 <h3 id="to-%5Bsemi-optional%5D">To [semi-optional] <a class="header-anchor" href="#to-%5Bsemi-optional%5D">#</a></h3>
-<p>A hex-encoded Ethereum address. Required for transactions with a recipient (all transactions except for contract creation).</p>
-<p>Contract creation occurs when there is no <code>to</code> value but there is a <code>data</code> value.</p>
+<p>A hex-encoded Conflux address. Required for transactions with a recipient (all
+transactions except for contract creation).</p>
+<p>Contract creation occurs when there is no <code>to</code> value but there is a <code>data</code>
+value.</p>
 <h3 id="value-%5Boptional%5D">Value [optional] <a class="header-anchor" href="#value-%5Boptional%5D">#</a></h3>
-<p>Hex-encoded value of the network’s native currency to send. On the Main Ethereum network, this is <a href="https://www.ethereum.org/ether">ether</a>, which is denominated in <em>wei</em>, which is <code>1e-18</code> ether.</p>
-<p>Please note that these numbers often used in Ethereum are far higher precision than native JavaScript numbers, and can cause unpredictable behavior if not anticipated. For this reason, we highly recommend using <a href="https://github.com/indutny/bn.js/">BN.js</a> when manipulating values intended for the blockchain.</p>
+<p>Hex-encoded value of the network’s native currency to send. On the Main Conflux
+network, this is cfx, which is denominated in <em>drip</em>, which is <code>1e-18</code> ether.</p>
+<p>Please note that these numbers often used in Conflux are far higher precision
+than native JavaScript numbers, and can cause unpredictable behavior if not
+anticipated. For this reason, we highly recommend using
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt">BigInt</a>
+or <a href="https://github.com/indutny/bn.js/">BN.js</a> when manipulating values intended
+for the blockchain.</p>
 <h3 id="data-%5Bsemi-optional%5D">Data [semi-optional] <a class="header-anchor" href="#data-%5Bsemi-optional%5D">#</a></h3>
 <p>Required for smart contract creation.</p>
-<p>This field is also used for specifying contract methods and their parameters. You can learn more about how that data is encoded on <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html">the solidity ABI spec</a>.</p>
+<p>This field is also used for specifying contract methods and their parameters.
+You can learn more about how that data is encoded on <a href="https://solidity.readthedocs.io/en/develop/abi-spec.html">the solidity ABI
+spec</a>.</p>
 <h3 id="chain-id-%5Bcurrently-ignored%5D">Chain ID [currently ignored] <a class="header-anchor" href="#chain-id-%5Bcurrently-ignored%5D">#</a></h3>
-<p>Chain ID is currently derived by the user’s current selected network at <code>ethereum.networkVersion</code>. In the future we will probably allow a way to connect to multiple networks at once, at which point this parameter will become important, so it may be useful to be in the habit of including now.</p>
+<p>Chain ID is currently derived by the user’s current selected network at
+<code>conflux.networkVersion</code>. In the future we will probably allow a way to connect
+to multiple networks at once, at which point this parameter will become
+important, so it may be useful to be in the habit of including now.</p>
 
                     <div class="bottomMatter">
                         Last updated:
                         
-                        12/23/2019
+                        1/16/2020
                         <span id="top">Top <i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     </div>
                 </div>

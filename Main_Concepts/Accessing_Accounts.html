@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>MetaMask</title>
+		<title>ConfluxPortal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="MetaMask project documentation">
+		<meta name="description" content="ConfluxPortal project documentation">
         <link rel="icon" type="image/png" href="https://i.ibb.co/BsTBKsn/fox.png">
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -357,8 +357,8 @@
         <header>
             <div class="name">
                 <div class="logo" style="background-image: url(https://i.ibb.co/BsTBKsn/fox.png)"></div>
-                MetaMask
-                <span class="version">v7.7.1</span>
+                ConfluxPortal
+                <span class="version">v7.7.2</span>
             </div>
             <div class="actions">
                 <a href="/metamask-docs/" class="help">
@@ -394,7 +394,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/Examples/Low_Level_Ether_Transfer">Low Level Ether Transfer</a>
+                                        <a href="/metamask-docs/Examples/Low_Level_CFX_Transfer">Low Level CFX Transfer</a>
                                     </li>
                                 
                             
@@ -460,7 +460,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Ethereum_Provider">Ethereum Provider</a>
+                                        <a href="/metamask-docs/API_Reference/Conflux_Provider">Conflux Provider</a>
                                     </li>
                                 
                             
@@ -496,7 +496,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Signing_Data/Eth_Sign">Eth Sign</a>
+                                        <a href="/metamask-docs/API_Reference/Signing_Data/CFX_Sign">CFX Sign</a>
                                     </li>
                                 
                             
@@ -586,30 +586,33 @@
             <main>
                 <div class="container">
                     <h1 id="accessing-accounts">Accessing Accounts <a class="header-anchor" href="#accessing-accounts">#</a></h1>
-<p>User accounts are used in a variety of contexts in Ethereum, they serve as neat identifiers,
-but no use is as important as calling <em>wallet methods</em>.
-These methods involve a signature or transaction approval.
-All of those methods require the sending account as a function parameter:</p>
+<p>User accounts are used in a variety of contexts in Conflux, they serve as neat
+identifiers, but no use is as important as calling <em>wallet methods</em>. These
+methods involve a signature or transaction approval. All of those methods
+require the sending account as a function parameter:</p>
 <ul>
-<li><code>eth_sendTransaction</code></li>
-<li><code>eth_sign</code> (insecure and unadvised to use)</li>
-<li><code>eth_personalSign</code></li>
-<li><code>eth_signTypedData</code></li>
+<li><code>cfx_sendTransaction</code></li>
+<li><code>cfx_sign</code> (insecure and unadvised to use)</li>
+<li><code>personal_sign</code></li>
 </ul>
-<p>Once you’ve <a href="./Getting_Started">connected to a user</a>, you can always re-check the current account by checking <code>ethereum.selectedAddress</code>.</p>
-<p>If you’d like to be notified when the address changes, we have an event you can subscribe to:</p>
-<pre><code class="hljs language-javascript">ethereum.on(<span class="hljs-string">'accountsChanged'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">accounts</span>) </span>{
+<!-- - `cfx_signTypedData` -->
+<p>Once you’ve <a href="./Getting_Started">connected to a user</a>, you can always re-check
+the current account by checking <code>conflux.selectedAddress</code>.</p>
+<p>If you’d like to be notified when the address changes, we have an event you can
+subscribe to:</p>
+<pre><code class="hljs language-javascript">conflux.on(<span class="hljs-string">'accountsChanged'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">accounts</span>) </span>{
   <span class="hljs-comment">// Time to reload your interface with accounts[0]!</span>
 })
 </code></pre>
-<p>If the first account in the returned array isn’t the account you expected, you should notify the user!
-In the future, the accounts array may contain more than one account.
-However, the first account in the array will continue to be considered as the user’s “selected” account.</p>
+<p>If the first account in the returned array isn’t the account you expected, you
+should notify the user! In the future, the accounts array may contain more than
+one account. However, the first account in the array will continue to be
+considered as the user’s “selected” account.</p>
 
                     <div class="bottomMatter">
                         Last updated:
                         
-                        12/23/2019
+                        1/16/2020
                         <span id="top">Top <i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     </div>
                 </div>

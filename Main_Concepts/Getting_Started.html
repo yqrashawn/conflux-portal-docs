@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>MetaMask</title>
+		<title>ConfluxPortal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="MetaMask project documentation">
+		<meta name="description" content="ConfluxPortal project documentation">
         <link rel="icon" type="image/png" href="https://i.ibb.co/BsTBKsn/fox.png">
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -357,8 +357,8 @@
         <header>
             <div class="name">
                 <div class="logo" style="background-image: url(https://i.ibb.co/BsTBKsn/fox.png)"></div>
-                MetaMask
-                <span class="version">v7.7.1</span>
+                ConfluxPortal
+                <span class="version">v7.7.2</span>
             </div>
             <div class="actions">
                 <a href="/metamask-docs/" class="help">
@@ -394,7 +394,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/Examples/Low_Level_Ether_Transfer">Low Level Ether Transfer</a>
+                                        <a href="/metamask-docs/Examples/Low_Level_CFX_Transfer">Low Level CFX Transfer</a>
                                     </li>
                                 
                             
@@ -460,7 +460,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Ethereum_Provider">Ethereum Provider</a>
+                                        <a href="/metamask-docs/API_Reference/Conflux_Provider">Conflux Provider</a>
                                     </li>
                                 
                             
@@ -496,7 +496,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Signing_Data/Eth_Sign">Eth Sign</a>
+                                        <a href="/metamask-docs/API_Reference/Signing_Data/CFX_Sign">CFX Sign</a>
                                     </li>
                                 
                             
@@ -586,60 +586,95 @@
             <main>
                 <div class="container">
                     <h1 id="getting-started">Getting Started <a class="header-anchor" href="#getting-started">#</a></h1>
-<p>To develop for MetaMask, you’re first going to want to get MetaMask installed on your development machine. <a href="https://metamask.io/">Download here</a>.</p>
-<p>Once you have it running, you should find that new browser tabs have a <code>window.ethereum</code> object available in the console.
-This is the way MetaMask provides for you to interact with it.</p>
-<p>You can review the full API for that object <a href="../API_Reference/Ethereum_Provider">here</a>.
-Note that in <strong>Q1 2020</strong>, we are introducing significant changes to this API, and we recommend that you refer to its documentation.</p>
+<p>To develop for ConfluxPortal, you’re first going to want to get ConfluxPortal
+installed on your development machine. <a href="https://metamask.io/">Download here</a>.</p>
+<p>Once you have it running, you should find that new browser tabs have a
+<code>window.conflux</code> object available in the console. This is the way ConfluxPortal
+provides for you to interact with it.</p>
+<p>You can review the full API for that object <a href="../API_Reference/Conflux_Provider">here</a>.</p>
 <h2 id="basic-considerations">Basic Considerations <a class="header-anchor" href="#basic-considerations">#</a></h2>
-<h3 id="web3-browser-detection">Web3 Browser Detection <a class="header-anchor" href="#web3-browser-detection">#</a></h3>
-<p>The first thing your app will want to do is verify whether the user is using MetaMask or not, which is simple using a check like <code>if (typeof window.ethereum !== 'undefined') { /* deal with it */ }</code>.</p>
+<h3 id="confluxjs-browser-detection">ConfluxJS Browser Detection <a class="header-anchor" href="#confluxjs-browser-detection">#</a></h3>
+<p>The first thing your app will want to do is verify whether the user is using
+ConfluxPortal or not, which is simple using a check like <code>if (typeof window.conflux !== 'undefined') { /* deal with it */ }</code>.</p>
 <h3 id="running-a-test-network">Running a Test Network <a class="header-anchor" href="#running-a-test-network">#</a></h3>
-<p>In the top right menu of MetaMask, you can select the network that you are currently connected to. Among several popular defaults, you’ll find <code>Custom RPC</code> and <code>Localhost 8545</code>. These are both useful for connecting to a test blockchain, like <a href="https://truffleframework.com/ganache">ganache</a>, which you can quickly install and start if you have <code>npm</code> installed with <code>npm i -g ganache-cli &amp;&amp; ganache-cli</code>.</p>
-<p>Ganache has some great features for starting it up with different states. If you start it with the <code>-m</code> flag, you can feed it the same seed phrase you have in your MetaMask, and the test network will give your first 10 accounts 100 test ether each, which makes it easier to start work.</p>
-<p>Since your seed phrase is the power to control all your accounts, it is probably worth keeping at least one seed phrase for development, separate from any that you use for storing real value. One easy way to manage multiple seed phrases with MetaMask is with multiple browser profiles, each of which can have its own clean extension installations.</p>
+<p>In the top right menu of ConfluxPortal, you can select the network that you are
+currently connected to. Among several popular defaults, you’ll find <code>Custom RPC</code>
+and <code>Localhost 12539</code>. These are both useful for connecting to a test
+blockchain, like <a href="https://github.com/yqrashawn/conflux-local-network-lite#readme">conflux local network
+lite</a>, which you
+can quickly install and start if you have <code>npm</code> installed with <code>npm i -g ganache-cli &amp;&amp; ganache-cli</code>.</p>
+<!-- Ganache has some great features for starting it up with different states. If you -->
+<!-- start it with the `-m` flag, you can feed it the same seed phrase you have in -->
+<!-- your ConfluxPortal, and the test network will give your first 10 accounts 100 -->
+<!-- test ether each, which makes it easier to start work.  -->
+<p>Since your seed phrase is the power to control all your accounts, it is probably
+worth keeping at least one seed phrase for development, separate from any that
+you use for storing real value. One easy way to manage multiple seed phrases
+with ConfluxPortal is with multiple browser profiles, each of which can have its
+own clean extension installations.</p>
 <h4 id="resetting-your-local-nonce-calculation">Resetting Your Local Nonce Calculation <a class="header-anchor" href="#resetting-your-local-nonce-calculation">#</a></h4>
-<p>If you’re running a test blockchain, and then restart it, you can accidentally confuse MetaMask, because it calculates the next <a href="./Sending_Transactions#nonce-%5Bignored%5D">nonce</a> based on both the network state <em>and</em> the known sent transactions.</p>
-<p>To clear MetaMask’s transaction queue, and effectively reset its nonce calculation, you can use the <code>Reset Account</code> button in <code>Settings</code> (available in the top-right sandwich menu).</p>
-<h3 id="detecting-metamask">Detecting MetaMask <a class="header-anchor" href="#detecting-metamask">#</a></h3>
-<p>If you want to differentiate MetaMask from other ethereum-compatible browsers, you can detect MetaMask using <code>ethereum.isMetaMask</code>.</p>
+<p>If you’re running a test blockchain, and then restart it, you can accidentally
+confuse ConfluxPortal, because it calculates the next
+<a href="./Sending_Transactions#nonce-%5Bignored%5D">nonce</a> based on both the network
+state <em>and</em> the known sent transactions.</p>
+<p>To clear ConfluxPortal’s transaction queue, and effectively reset its nonce
+calculation, you can use the <code>Reset Account</code> button in <code>Settings</code> (available in
+the top-right sandwich menu).</p>
+<h3 id="detecting-confluxportal">Detecting ConfluxPortal <a class="header-anchor" href="#detecting-confluxportal">#</a></h3>
+<p>If you want to differentiate ConfluxPortal from other conflux-compatible
+browsers, you can detect ConfluxPortal using <code>conflux.isConfluxPortal</code>.</p>
 <h3 id="user-state">User State <a class="header-anchor" href="#user-state">#</a></h3>
-<p>Currently there are a few stateful things you want to consider when interacting with this API:</p>
+<p>Currently there are a few stateful things you want to consider when interacting
+with this API:</p>
 <ul>
 <li>What is the current network?</li>
 <li>What is the current account?</li>
 </ul>
-<p>Both of these are available synchronously as <code>ethereum.networkVersion</code> and <code>ethereum.selectedAddress</code>.
-You can listen for changes using events too, see (<a href="./API_Reference">the API reference</a>).</p>
-<h3 id="connecting-to-metamask">Connecting to MetaMask <a class="header-anchor" href="#connecting-to-metamask">#</a></h3>
-<p>“Connecting” or “logging in” to MetaMask effectively means “to access the user’s Ethereum account(s)”.</p>
-<p>You should <strong>only</strong> initiate a connection request in response to direct user action, such as clicking a button.
-You should <strong>never</strong> initiate a connection request on page load.</p>
-<p>We recommend that you provide a button to allow the user to connect MetaMask to your dapp.
-Clicking this button should call the following method:</p>
-<pre><code class="hljs language-javascript">ethereum.enable()
+<p>Both of these are available synchronously as <code>conflux.networkVersion</code> and
+<code>conflux.selectedAddress</code>. You can listen for changes using events too, see
+(<a href="./API_Reference">the API reference</a>).</p>
+<h3 id="connecting-to-confluxportal">Connecting to ConfluxPortal <a class="header-anchor" href="#connecting-to-confluxportal">#</a></h3>
+<p>“Connecting” or “logging in” to ConfluxPortal effectively means “to access the
+user’s Conflux account(s)”.</p>
+<p>You should <strong>only</strong> initiate a connection request in response to direct user
+action, such as clicking a button. You should <strong>never</strong> initiate a connection
+request on page load.</p>
+<p>We recommend that you provide a button to allow the user to connect
+ConfluxPortal to your dapp. Clicking this button should call the following
+method:</p>
+<pre><code class="hljs language-javascript">conflux.enable()
 </code></pre>
-<p>This promise-returning function resolves with an array of hex-prefixed ethereum addresses, which can be used as general account references when sending transactions.</p>
-<p>Over time, this method is intended to grow to include various additional parameters to help your site request all the setup it needs from the user during setup.</p>
-<p>Since it returns a promise, if you’re in an <code>async</code> function, you may log in like this:</p>
-<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> accounts = <span class="hljs-keyword">await</span> ethereum.enable()
+<p>This promise-returning function resolves with an array of hex-prefixed conflux
+addresses, which can be used as general account references when sending
+transactions.</p>
+<p>Over time, this method is intended to grow to include various additional
+parameters to help your site request all the setup it needs from the user during
+setup.</p>
+<p>Since it returns a promise, if you’re in an <code>async</code> function, you may log in
+like this:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> accounts = <span class="hljs-keyword">await</span> conflux.enable()
 <span class="hljs-keyword">const</span> account = accounts[<span class="hljs-number">0</span>] <span class="hljs-comment">// We currently only ever provide a single account,</span>
                             <span class="hljs-comment">// but the array gives us some room to grow.</span>
 </code></pre>
 <h2 id="choosing-a-convenience-library">Choosing a Convenience Library <a class="header-anchor" href="#choosing-a-convenience-library">#</a></h2>
 <p>Convenience libraries exist for a variety of reasons.</p>
-<p>Some of them simplify the creation of specific user interface elements, some entirely manage the user account onboarding, and others give you a variety of methods of interacting with smart contracts, for a variety of API preferences, from promises, to callbacks, to strong types, and on.</p>
-<p>The provider API itself is very simple, and wraps
-<a href="https://github.com/ethereum/wiki/wiki/JSON-RPC#json-rpc-methods">Ethereum JSON-RPC</a>
-formatted messages, which is why developers usually use a convenience library for interacting
-with the provider, like <a href="https://www.npmjs.com/package/ethers">ethers</a>, <a href="https://www.npmjs.com/package/web3">web3</a>,
-<a href="https://truffleframework.com/">truffle</a>, <a href="https://embark.status.im/">Embark</a>, or others. From those tools,
-you can generally find sufficient documentation to interact with the provider, without reading this lower-level API.</p>
+<p>Some of them simplify the creation of specific user interface elements, some
+entirely manage the user account onboarding, and others give you a variety of
+methods of interacting with smart contracts, for a variety of API preferences,
+from promises, to callbacks, to strong types, and on.</p>
+<p>The provider API itself is very simple, and wraps <a href="https://conflux-chain.github.io/conflux-doc/json-rpc/">Conflux
+JSON-RPC</a> formatted
+messages, which is why developers usually use a convenience library for
+interacting with the provider, like
+<a href="https://www.npmjs.com/package/js-conflux-sdk">js-conflux-sdk</a>,
+<a href="https://github.com/liuis/conffle#readme">conffle</a>, or others. From those tools,
+you can generally find sufficient documentation to interact with the provider,
+without reading this lower-level API.</p>
 
                     <div class="bottomMatter">
                         Last updated:
                         
-                        12/23/2019
+                        1/16/2020
                         <span id="top">Top <i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     </div>
                 </div>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>MetaMask</title>
+		<title>ConfluxPortal</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="MetaMask project documentation">
+		<meta name="description" content="ConfluxPortal project documentation">
         <link rel="icon" type="image/png" href="https://i.ibb.co/BsTBKsn/fox.png">
 
         <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -357,8 +357,8 @@
         <header>
             <div class="name">
                 <div class="logo" style="background-image: url(https://i.ibb.co/BsTBKsn/fox.png)"></div>
-                MetaMask
-                <span class="version">v7.7.1</span>
+                ConfluxPortal
+                <span class="version">v7.7.2</span>
             </div>
             <div class="actions">
                 <a href="/metamask-docs/" class="help">
@@ -394,7 +394,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/Examples/Low_Level_Ether_Transfer">Low Level Ether Transfer</a>
+                                        <a href="/metamask-docs/Examples/Low_Level_CFX_Transfer">Low Level CFX Transfer</a>
                                     </li>
                                 
                             
@@ -460,7 +460,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Ethereum_Provider">Ethereum Provider</a>
+                                        <a href="/metamask-docs/API_Reference/Conflux_Provider">Conflux Provider</a>
                                     </li>
                                 
                             
@@ -496,7 +496,7 @@
                                 
                                 
                                     <li>
-                                        <a href="/metamask-docs/API_Reference/Signing_Data/Eth_Sign">Eth Sign</a>
+                                        <a href="/metamask-docs/API_Reference/Signing_Data/CFX_Sign">CFX Sign</a>
                                     </li>
                                 
                             
@@ -587,11 +587,17 @@
                 <div class="container">
                     <h1 id="experimental-apis">Experimental APIs <a class="header-anchor" href="#experimental-apis">#</a></h1>
 <h2 id="wallet_watchasset">wallet_watchAsset <a class="header-anchor" href="#wallet_watchasset">#</a></h2>
-<p>Most all Ethereum wallets display some set of tokens, usually from a centrally curated registry of tokens.</p>
-<p>At MetaMask, we believe the future of tokens has the potential to be much bigger than any one party can curate, and we want to enable this explosion of creativity.</p>
-<p>In support of this goal, we have implemented support for <a href="https://github.com/estebanmino/EIPs/blob/master/EIPS/eip-747.md">EIP 747</a>, which provides a way for your site to suggest a token that a user might want to track in their wallet.</p>
+<p>Most all Conflux wallets display some set of tokens, usually from a centrally
+curated registry of tokens.</p>
+<p>At ConfluxPortal, we believe the future of tokens has the potential to be much
+bigger than any one party can curate, and we want to enable this explosion of
+creativity.</p>
+<p>In support of this goal, we have implemented support for <a href="https://github.com/estebanmino/EIPs/blob/master/EIPS/eip-747.md">EIP
+747</a>, which
+provides a way for your site to suggest a token that a user might want to track
+in their wallet.</p>
 <p>The code is simple:</p>
-<pre><code class="hljs language-javascript">ethereum.sendAsync({
+<pre><code class="hljs language-javascript">conflux.sendAsync({
 	<span class="hljs-attr">method</span>: <span class="hljs-string">'metamask_watchAsset'</span>,
 	<span class="hljs-attr">params</span>: {
 		<span class="hljs-string">"type"</span>:<span class="hljs-string">"ERC20"</span>, <span class="hljs-comment">// Initially only supports ERC20, but eventually more!</span>
@@ -607,23 +613,43 @@
 
 })
 </code></pre>
-<p>We even created a sample Dapp so developers could suggest their tokens to users with a simple hyperlink, without a line of code. <a href="https://github.com/MetaMask/Add-Token">Visit it here</a>.</p>
-<h2 id="ethereum._metamask"><code>ethereum._metamask</code> <a class="header-anchor" href="#ethereum._metamask">#</a></h2>
-<p>MetaMask supports the standard Ethereum Provider API as defined in both <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1193.md">EIP-1193</a> and <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1102.md">EIP-1102</a>. In addition to <code>ethereum.enable()</code> and its RPC equivalent <code>ethereum.send('eth_requestAccounts')</code>, MetaMask also exposes a collection of nonstandard convenience methods on the provider object at <code>ethereum._metamask</code>. <strong>Using these methods is dangerous</strong> since other dapp browsers may or may not implement them; for this reason, these methods are intentionally kept at a MetaMask-specific namespace to avoid confusion with standard provider functionality.</p>
+<p>We even created a sample Dapp so developers could suggest their tokens to users
+with a simple hyperlink, without a line of code. <a href="https://github.com/MetaMask/Add-Token">Visit it
+here</a>.</p>
+<h2 id="conflux._metamask"><code>conflux._metamask</code> <a class="header-anchor" href="#conflux._metamask">#</a></h2>
+<p>ConfluxPortal supports the standard Conflux Provider API as defined in both
+<a href="https://github.com/conflux/EIPs/blob/master/EIPS/eip-1193.md">EIP-1193</a> and
+<a href="https://github.com/conflux/EIPs/blob/master/EIPS/eip-1102.md">EIP-1102</a>. In
+addition to <code>conflux.enable()</code> and its RPC equivalent
+<code>conflux.send('cfx_requestAccounts')</code>, ConfluxPortal also exposes a collection
+of nonstandard convenience methods on the provider object at
+<code>conflux._metamask</code>. <strong>Using these methods is dangerous</strong> since other dapp
+browsers may or may not implement them; for this reason, these methods are
+intentionally kept at a ConfluxPortal-specific namespace to avoid confusion with
+standard provider functionality.</p>
 <p>Each method and its intended use is described below.</p>
-<h3 id="ethereum._metamask.isenabled%3A-()-%3D%3E-boolean-(to-be-removed)"><code>ethereum._metamask.isEnabled: () =&gt; boolean</code> (To Be Removed) <a class="header-anchor" href="#ethereum._metamask.isenabled%3A-()-%3D%3E-boolean-(to-be-removed)">#</a></h3>
+<h3 id="conflux._metamask.isenabled%3A-()-%3D%3E-boolean-(to-be-removed)"><code>conflux._metamask.isEnabled: () =&gt; boolean</code> (To Be Removed) <a class="header-anchor" href="#conflux._metamask.isenabled%3A-()-%3D%3E-boolean-(to-be-removed)">#</a></h3>
 <p><strong>Note:</strong> This will be removed in <strong>Q1 2020</strong>.</p>
-<p>This method returns a <code>boolean</code> indicating if the current domain has access to user accounts. This is useful for determining if a user has approved account access for the current session.</p>
-<h3 id="ethereum._metamask.isapproved%3A-()-%3D%3E-promise%3Cboolean%3E-(to-be-removed)"><code>ethereum._metamask.isApproved: () =&gt; Promise&lt;boolean&gt;</code> (To Be Removed) <a class="header-anchor" href="#ethereum._metamask.isapproved%3A-()-%3D%3E-promise%3Cboolean%3E-(to-be-removed)">#</a></h3>
+<p>This method returns a <code>boolean</code> indicating if the current domain has access to
+user accounts. This is useful for determining if a user has approved account
+access for the current session.</p>
+<h3 id="conflux._metamask.isapproved%3A-()-%3D%3E-promise%3Cboolean%3E-(to-be-removed)"><code>conflux._metamask.isApproved: () =&gt; Promise&lt;boolean&gt;</code> (To Be Removed) <a class="header-anchor" href="#conflux._metamask.isapproved%3A-()-%3D%3E-promise%3Cboolean%3E-(to-be-removed)">#</a></h3>
 <p><strong>Note:</strong> This will be removed in <strong>Q1 2020</strong>.</p>
-<p>This method returns a <code>Promise</code> that resolves to a <code>Boolean</code> indicating if the current domain has a cached approval. This is useful for determining if an approval popup will show when <code>ethereum.enable()</code> is called, since it indicates if a past approval exists.</p>
-<h3 id="ethereum._metamask.isunlocked%3A-()-%3D%3E-promise%3Cboolean%3E"><code>ethereum._metamask.isUnlocked: () =&gt; Promise&lt;boolean&gt;</code> <a class="header-anchor" href="#ethereum._metamask.isunlocked%3A-()-%3D%3E-promise%3Cboolean%3E">#</a></h3>
-<p>This method returns a <code>Promise</code> that resolves to a <code>Boolean</code> indicating if MetaMask is unlocked by the user. This is useful for knowing if MetaMask is unlocked in order to provide meaningful instructions to the user during onboarding. Note that this does not indicate if a user has approved account exposure.</p>
+<p>This method returns a <code>Promise</code> that resolves to a <code>Boolean</code> indicating if the
+current domain has a cached approval. This is useful for determining if an
+approval popup will show when <code>conflux.enable()</code> is called, since it indicates
+if a past approval exists.</p>
+<h3 id="conflux._metamask.isunlocked%3A-()-%3D%3E-promise%3Cboolean%3E"><code>conflux._metamask.isUnlocked: () =&gt; Promise&lt;boolean&gt;</code> <a class="header-anchor" href="#conflux._metamask.isunlocked%3A-()-%3D%3E-promise%3Cboolean%3E">#</a></h3>
+<p>This method returns a <code>Promise</code> that resolves to a <code>Boolean</code> indicating if
+ConfluxPortal is unlocked by the user. This is useful for knowing if
+ConfluxPortal is unlocked in order to provide meaningful instructions to the
+user during onboarding. Note that this does not indicate if a user has approved
+account exposure.</p>
 
                     <div class="bottomMatter">
                         Last updated:
                         
-                        12/23/2019
+                        1/16/2020
                         <span id="top">Top <i class="fa fa-arrow-up" aria-hidden="true"></i></span>
                     </div>
                 </div>

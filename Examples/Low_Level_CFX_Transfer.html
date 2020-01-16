@@ -585,17 +585,145 @@
             </nav>
             <main>
                 <div class="container">
-                    <h1 id="defining-your-app%E2%80%99s-icon">Defining Your App’s Icon <a class="header-anchor" href="#defining-your-app%E2%80%99s-icon">#</a></h1>
-<p>When your site makes a login request to a ConfluxPortal user, ConfluxPortal may
-render a modal that display’s your site icon.</p>
-<p>We retrieve this icon using the HTML selector <code>head &gt; link[rel=&quot;shortcut icon&quot;]</code>, so to customize this icon for your site, just make sure to follow the
-<a href="https://en.wikipedia.org/wiki/Favicon">favicon standard</a>, and make sure to have
-a <code>link</code> tag within your site’s <code>head</code> with <code>rel = &quot;shortcut icon&quot;</code>, like this.</p>
-<p>The tag’s <code>href</code> attribute will be used for assigning the site icon.</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"shortcut icon"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://your-site.com/your-icon.png"</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+                    <h1 id="confluxportal-quick-start">ConfluxPortal Quick Start <a class="header-anchor" href="#confluxportal-quick-start">#</a></h1>
+<p>Do you prefer to just copy and paste some working code? Here is a simple but
+complete working ConfluxPortal tipping application.</p>
+<p>Below the code snippet, we’ll include some links to some related valuable
+resources.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Let's imagine you want to receive an cfx tip</span>
+<span class="hljs-keyword">const</span> yourAddress = <span class="hljs-string">'0x0c54FcCd2e384b4BB6f2E405Bf5Cbc15a017AaFb'</span>
+<span class="hljs-keyword">const</span> value = <span class="hljs-string">'0xde0b6b3a7640000'</span> <span class="hljs-comment">// an ether has 18 decimals, here in hex.</span>
+<span class="hljs-keyword">const</span> desiredNetwork = <span class="hljs-string">'1'</span> <span class="hljs-comment">// '1' is the Conflux main network ID.</span>
+
+<span class="hljs-comment">// Detect whether the current browser is conflux-compatible,</span>
+<span class="hljs-comment">// and handle the case where it isn't:</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span>.conflux === <span class="hljs-string">'undefined'</span>) {
+  alert(<span class="hljs-string">'Looks like you need a Dapp browser to get started.'</span>)
+  alert(<span class="hljs-string">'Consider installing ConfluxPortal!'</span>)
+
+} <span class="hljs-keyword">else</span> {
+
+  <span class="hljs-comment">// In the case the user has ConfluxPortal installed, you can easily</span>
+  <span class="hljs-comment">// ask them to sign in and reveal their accounts:</span>
+  conflux.enable()
+
+  <span class="hljs-comment">// Remember to handle the case they reject the request:</span>
+  .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reason</span>) </span>{
+    <span class="hljs-keyword">if</span> (reason === <span class="hljs-string">'User rejected provider access'</span>) {
+      <span class="hljs-comment">// The user didn't want to sign in!</span>
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// This shouldn't happen, so you might want to log this...</span>
+      alert(<span class="hljs-string">'There was an issue signing you in.'</span>)
+    }
+  })
+
+  <span class="hljs-comment">// In the case they approve the log-in request, you'll receive their accounts:</span>
+  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">accounts</span>) </span>{
+    <span class="hljs-comment">// You also should verify the user is on the correct network:</span>
+    <span class="hljs-keyword">if</span> (conflux.networkVersion !== desiredNetwork) {
+      alert(<span class="hljs-string">'This application requires the main network, please switch it in your ConfluxPortal UI.'</span>)
+
+      <span class="hljs-comment">// We plan to provide an API to make this request in the near future.</span>
+      <span class="hljs-comment">// https://github.com/MetaMask/metamask-extension/issues/3663</span>
+    }
+
+    <span class="hljs-comment">// Once you have a reference to user accounts,</span>
+    <span class="hljs-comment">// you can suggest transactions and signatures:</span>
+    <span class="hljs-keyword">const</span> account = accounts[<span class="hljs-number">0</span>]
+    sendCFXFrom(account, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, transaction</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> alert(<span class="hljs-string">`Sorry you weren't able to contribute!`</span>)
+      }
+
+      alert(<span class="hljs-string">'Thanks for your successful contribution!'</span>)
+    })
+
+  })
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendCFXFrom</span> (<span class="hljs-params">account, callback</span>) </span>{
+
+  <span class="hljs-comment">// We're going to use the lowest-level API here, with simpler example links below</span>
+  <span class="hljs-keyword">const</span> method = <span class="hljs-string">'cfx_sendTransaction'</span>
+  <span class="hljs-keyword">const</span> parameters = [{
+    <span class="hljs-attr">from</span>: account,
+    <span class="hljs-attr">to</span>: yourAddress,
+    <span class="hljs-attr">value</span>: value,
+  }]
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">from</span> = account
+
+  <span class="hljs-comment">// Now putting it all together into an RPC request:</span>
+  <span class="hljs-keyword">const</span> payload = {
+    <span class="hljs-attr">method</span>: method,
+    <span class="hljs-attr">params</span>: parameters,
+    <span class="hljs-attr">from</span>: <span class="hljs-keyword">from</span>,
+  }
+
+  <span class="hljs-comment">// Methods that require user authorization like this one will prompt a user interaction.</span>
+  <span class="hljs-comment">// Other methods (like reading from the blockchain) may not.</span>
+  conflux.sendAsync(payload, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, response</span>) </span>{
+    <span class="hljs-keyword">const</span> rejected = <span class="hljs-string">'User denied transaction signature.'</span>
+    <span class="hljs-keyword">if</span> (response.error &amp;&amp; response.error.message.includes(rejected)) {
+      <span class="hljs-keyword">return</span> alert(<span class="hljs-string">`We can't take your money without your permission.`</span>)
+    }
+
+    <span class="hljs-keyword">if</span> (err) {
+      <span class="hljs-keyword">return</span> alert(<span class="hljs-string">'There was an issue, please try again.'</span>)
+    }
+
+    <span class="hljs-keyword">if</span> (response.result) {
+      <span class="hljs-comment">// If there is a response.result, the call was successful.</span>
+      <span class="hljs-comment">// In the case of this method, it is a transaction hash.</span>
+      <span class="hljs-keyword">const</span> txHash = response.result
+      alert(<span class="hljs-string">'Thank you for your generosity!'</span>)
+
+      <span class="hljs-comment">// You can poll the blockchain to see when this transaction has been mined:</span>
+      pollForCompletion(txHash, callback)
+    }
+  })
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pollForCompletion</span> (<span class="hljs-params">txHash, callback</span>) </span>{
+  <span class="hljs-keyword">let</span> calledBack = <span class="hljs-literal">false</span>
+
+  <span class="hljs-comment">// Normal conflux blocks are approximately every 15 seconds.</span>
+  <span class="hljs-comment">// Here we'll poll every 2 seconds.</span>
+  <span class="hljs-keyword">const</span> checkInterval = setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">const</span> notYet = <span class="hljs-string">'response has no error or result'</span>
+    conflux.sendAsync({
+      <span class="hljs-attr">method</span>: <span class="hljs-string">'cfx_getTransactionByHash'</span>,
+      <span class="hljs-attr">params</span>: [ txHash ],
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, response</span>) </span>{
+      <span class="hljs-keyword">if</span> (calledBack) <span class="hljs-keyword">return</span>
+      <span class="hljs-keyword">if</span> (err || response.error) {
+        <span class="hljs-keyword">if</span> (err.message.includes(notYet)) {
+          <span class="hljs-keyword">return</span> <span class="hljs-string">'transaction is not yet mined'</span>
+        }
+
+        callback(err || response.error)
+      }
+
+      <span class="hljs-comment">// We have successfully verified the mined transaction.</span>
+      <span class="hljs-comment">// Mind you, we should do this server side, with our own blockchain connection.</span>
+      <span class="hljs-comment">// Client side we are trusting the user's connection to the blockchain.</span>
+      <span class="hljs-keyword">const</span> transaction = response.result
+      clearInterval(checkInterval)
+      calledBack = <span class="hljs-literal">true</span>
+      callback(<span class="hljs-literal">null</span>, transaction)
+    })
+  }, <span class="hljs-number">2000</span>)
+}
 </code></pre>
+<p>Now that was all very low level, but should show you how ConfluxPortal works at
+its simplest, and lowest level!</p>
+<p>Now you can read more about this <a href="./API_Reference">conflux API</a>, or maybe get
+acquainted with a convenience library so you don’t have to interact with it
+directly:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/js-conflux-sdk">js-conflux-sdk</a></li>
+<li><a href="https://github.com/liuis/conffle#readme">conffle</a></li>
+</ul>
 
                     <div class="bottomMatter">
                         Last updated:
