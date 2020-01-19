@@ -592,17 +592,20 @@
             </nav>
             <main>
                 <div class="container">
-                    <h1 id="the-conflux-rpc-api">The Conflux RPC API <a class="header-anchor" href="#the-conflux-rpc-api">#</a></h1>
-<p>ConfluxPortal uses the <code>conflux.sendAsync()</code> (and soon, <code>conflux.send()</code>) API to
-wrap an RPC API which is based on an interface exposed by all Conflux clients,
-with some extra methods that are provided by MetaMask, as a key-holding signer.
-You can look up how to pass these methods to the <code>window.conflux</code> object
-<a href="./Conflux_Provider">here</a>.</p>
-<p>This document is a cross-post of <a href="https://github.com/ethereum/EIPs/pull/1474/">EIP
-1474</a>, which aims to standardize the
-declaration of this interface.</p>
-<p>For the full API, please see <a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-1474.md">EIP
-1474</a>.</p>
+                    <h1 id="confluxportal-e2e-test-dapp">ConfluxPortal E2E Test Dapp <a class="header-anchor" href="#confluxportal-e2e-test-dapp">#</a></h1>
+<p><a href="http://13.57.190.119:9000/contract.html">Here</a> is a page for testing
+ConfluxPortal functions. It contains code examples for testing:</p>
+<ul>
+<li>connect to ConfluxPortal</li>
+<li>deploy contract on conflux test net</li>
+<li>send CFX</li>
+<li>deploy a erc20 token and send token</li>
+<li>get user accounts</li>
+<li>use <code>personal_sign</code> to sign data</li>
+<li><code>cfx_sign</code> (deprecated)</li>
+</ul>
+<p>You can find the source code on
+<a href="https://github.com/Conflux-Chain/conflux-portal/blob/cfx-test/test/e2e/contract-test/">github</a>.</p>
 
                     <div class="bottomMatter">
                         Last updated:
