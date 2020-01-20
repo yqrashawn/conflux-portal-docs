@@ -611,17 +611,12 @@
             </nav>
             <main>
                 <div class="container">
-                    <h1 id="defining-your-app%E2%80%99s-icon">Defining Your App’s Icon <a class="header-anchor" href="#defining-your-app%E2%80%99s-icon">#</a></h1>
-<p>When your site makes a login request to a ConfluxPortal user, ConfluxPortal may
-render a modal that display’s your site icon.</p>
-<p>We retrieve this icon using the HTML selector <code>head &gt; link[rel=&quot;shortcut icon&quot;]</code>, so to customize this icon for your site, just make sure to follow the
-<a href="https://en.wikipedia.org/wiki/Favicon">favicon standard</a>, and make sure to have
-a <code>link</code> tag within your site’s <code>head</code> with <code>rel = &quot;shortcut icon&quot;</code>, like this.</p>
-<p>The tag’s <code>href</code> attribute will be used for assigning the site icon.</p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"shortcut icon"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://your-site.com/your-icon.png"</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
-</code></pre>
+                    <p>MetaMask inject a <code>window.web3</code> (deprecated since 2020-01-13) and a
+<code>window.ethereum</code> in user pages. The corresponding conflux global variables are
+<code>window.confluxJS</code> and <code>window.conflux</code></p>
+<p>MetaMask has the api <code>window.ethereum.isMetaMask</code> for developer to check if the
+MetaMask version of provider is available. ConfluxPortal change that to
+<code>window.conflux.isConfluxPortal</code>.</p>
 
                     <div class="bottomMatter">
                         Last updated:
