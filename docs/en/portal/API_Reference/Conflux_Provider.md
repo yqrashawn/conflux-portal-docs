@@ -1,6 +1,6 @@
 ---
 id: provider_api
-title: Conflux Provider API
+title: Portal Provider API
 custom_edit_url: https://github.com/Conflux-Chain/conflux-portal-docs/edit/master/docs/en/portal/API_Reference/Conflux_Provider.md
 ---
 Conflux Portal injects a global API into websites visited by its users at
@@ -75,7 +75,7 @@ example values:
 Returns a hex-prefixed string representing the current user's selected address,
 ex: `"0xfdea65c8e26263f6d9a1b5de9555d2931a33b825"`. 
 
-### conflux.isConflux Portal
+### conflux.isConfluxPortal
 
 Returns `true` or `false`, representing whether the user has Conflux Portal
 installed. 
