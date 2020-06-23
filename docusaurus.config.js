@@ -3,7 +3,7 @@ module.exports = {
   title: 'ConfluxPortal Developer',
   tagline: 'ConfluxPortal Documentation',
   url: 'https://conflux-chain.github.io/conflux-portal-docs/',
-  baseUrl: process.env.NODE_ENV === "production" ? '/conflux-portal-docs/' : '/',
+  baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'Conflux-Chain', // Usually your GitHub org/user name.
   projectName: 'conflux-portal', // Usually your repo name.
