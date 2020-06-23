@@ -32,6 +32,7 @@ jobs:
 
               yarn --frozen-lockfile
               yarn build
+              cp -r e2e_test_demo build
 
               mkdir ../project-gh-pages
               cp -r .git ../project-gh-pages
@@ -39,7 +40,6 @@ jobs:
               git checkout $TARGET_BRANCH
 
               cp -r ../project/build/* .
-              cp -r ../project/e2e_test_demo ../project-gh-pages/docs/portal/
 
               git add -A
               git commit -m "Automated deployment: ${CIRCLE_SHA1} [ci skip]" --allow-empty
