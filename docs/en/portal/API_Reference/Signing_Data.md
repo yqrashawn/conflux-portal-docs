@@ -6,16 +6,15 @@ custom_edit_url: https://github.com/Conflux-Chain/conflux-portal-docs/edit/maste
 
 ## History of the signing methods
 
-Portal is forked from MetaMask and there are multiple signing methods in
-MetaMask. You can read the history of all the signing methods in [MetaMask
-documentation](https://docs.metamask.io/guide/signing-data.html#a-brief-history). 
+Portal is forked from MetaMask and there are multiple signing methods in MetaMask. You can read the history of all the signing methods in [MetaMask documentation](https://docs.metamask.io/guide/signing-data.html#a-brief-history). 
+
+We reserved all these methods and made some changes. The usage and intention of all these methods are not changed. We will follow EIP-712 if there's new spec, say v5 of typed sign.
 
 ## What changed in ConfluxPortal
 
-- We changed `cfx_sign` to use the
-  [`personal_sign`](https://github.com/ethereum/go-ethereum/pull/2940) logic. We
-  recommend using `cfx_sign` method instead of `personal_sign`.
-- The `signTypedData`, `signTypedData_v1`, `signTypedData_v3`,
-`signTypedData_v4` still works the same way as
-[MetaMask](https://docs.metamask.io/guide/signing-data.html#sign-typed-data-v1).
-But we are planning to change them before our mainet launch.
+1. In Ethereum's ecdsa sign method, the `v` (in r, s, v) is affected by the `chainId`, [we don't count `chainId` in this method](https://github.com/yqrashawn/confluxjs-util/compare/59e9849ac291c7bb2318f804b8f4b02277bf5bca...master#diff-332ce297a81989a8b375f3bb70deb2ec) at Conflux. This affects all signing methods including signing the transaction.
+2. [We changed the prefix message](https://github.com/yqrashawn/confluxjs-util/compare/59e9849ac291c7bb2318f804b8f4b02277bf5bca...master#diff-332ce297a81989a8b375f3bb70deb2ecR126) from `\u0019Ethereum Signed Message:\n` to `\u0019Conflux Signed Message:\n` in the `personal_sign` method.
+
+## Demo
+
+[Here](../../../../e2e_test_demo/) is a demo page for testing ConfluxPortal. There's example code of calling `cfx_signTypedData_v4`, `personal_sign` and `cfx_sign` in it.
